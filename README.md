@@ -5,9 +5,12 @@ At startup, the scripts simplify your meshes with [meshoptimizer](https://github
 generate LOD levels automatically, then switch between them based on camera distance.
 There is no build step: just upload the files to the PlayCanvas Editor.
 
-<img src="docs/lod-switching-demo.gif" width="100%" alt="Switching LOD levels in Manual mode with wireframe and Color by LOD on: LOD0 49,998 → LOD1 24,998 → LOD3 4,999 triangles">
+**[▶ Live demo](https://playcanv.as/p/06c52602/)** — switch to **Manual**, pick a level (0–3), and turn on
+**Wireframe** or **Color by LOD** to watch the triangle count change.
 
-<sub>Model: ["Frank"](https://sketchfab.com/3d-models/frank-0eb1f1757349489eab05a0f03cff5b46) by [misterdevious](https://sketchfab.com/misterdevious), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). This recording is shared under the same license.</sub>
+<a href="https://playcanv.as/p/06c52602/"><img src="docs/lod-switching-demo.gif" width="100%" alt="Switching LOD levels in Manual mode with wireframe and Color by LOD on: LOD0 49,998 → LOD1 24,998 → LOD3 4,999 triangles"></a>
+
+<sub>Model in the demo and recording: ["Frank"](https://sketchfab.com/3d-models/frank-0eb1f1757349489eab05a0f03cff5b46) by [misterdevious](https://sketchfab.com/misterdevious), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). The recording is shared under the same license.</sub>
 
 | File | Script name | Purpose |
 |------|-------------|---------|

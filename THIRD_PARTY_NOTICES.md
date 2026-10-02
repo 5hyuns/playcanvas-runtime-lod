@@ -51,7 +51,8 @@ SOFTWARE.
 - **Source:** https://sketchfab.com/3d-models/frank-0eb1f1757349489eab05a0f03cff5b46
 - **License:** Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
   - https://creativecommons.org/licenses/by-nc-sa/4.0/
-- **Used for:** the test/demo model in the PlayCanvas project where these scripts were developed.
+- **Used for:** the test/demo model in the PlayCanvas project where these scripts were developed,
+  including the hosted live demo at https://playcanv.as/p/06c52602/ (credited in its description).
   The model was not modified as a file; `lod.js` only produces simplified versions of it at runtime.
 
 The model file itself is **not** distributed in this repository.
