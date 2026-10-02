@@ -323,8 +323,14 @@ LodScript.prototype._applyLevel = function (level) {
 };
 
 LodScript.prototype._setIndexBuffer = function (mesh, indexBuffer, count) {
-    mesh.indexBuffer[0] = indexBuffer;
-    mesh.primitive[0].count = count;
+    mesh.indexBuffer[pc.RENDERSTYLE_SOLID] = indexBuffer;
+    mesh.primitive[pc.RENDERSTYLE_SOLID].count = count;
+
+    // The engine builds a separate line index buffer when wireframe is turned on and never
+    // refreshes it, so rebuild it from the new triangles or wireframe keeps showing the old level.
+    if (mesh.indexBuffer[pc.RENDERSTYLE_WIREFRAME]) {
+        mesh.generateWireframe();
+    }
 };
 
 // Restores the original index buffers and frees the generated ones.
