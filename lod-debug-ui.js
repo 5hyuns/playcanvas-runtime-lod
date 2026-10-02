@@ -24,16 +24,40 @@ LodDebugUi.TINT_COLORS = [
 ];
 
 LodDebugUi.STYLE = {
-    panel: 'position:fixed; top:10px; right:10px; z-index:10000; min-width:200px; padding:12px 16px;' +
-        'background:rgba(0,0,0,0.85); color:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3);' +
-        'font:13px Consolas, Monaco, monospace;',
     title: 'font-weight:bold; font-size:14px; margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid #444;',
     row: 'display:flex; justify-content:space-between; margin-bottom:4px;',
     separator: 'border-bottom:1px solid #444; margin:10px 0;',
     buttonRow: 'display:flex; gap:6px; margin-bottom:10px;',
-    button: 'flex:1; padding:6px 0; border:1px solid #666; border-radius:4px; background:#333; color:#fff;' +
+    button: 'flex:1; border:1px solid #666; border-radius:4px; background:#333; color:#fff;' +
         'font:inherit; font-size:12px; cursor:pointer;',
     checkbox: 'display:flex; align-items:center; gap:8px; margin-bottom:6px; cursor:pointer;'
+};
+
+// Panel placement lives in a stylesheet so it can respond to the screen:
+// top-right on desktop, bottom-center with larger touch targets on phones in portrait.
+LodDebugUi.CSS =
+    '.lod-debug-panel {' +
+    '  position:fixed; top:10px; right:10px; z-index:10000; min-width:200px; padding:12px 16px;' +
+    '  background:rgba(0,0,0,0.85); color:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3);' +
+    '  font:13px Consolas, Monaco, monospace;' +
+    '}' +
+    '.lod-debug-panel button { padding:6px 0; }' +
+    '@media (max-width: 600px), (pointer: coarse) and (orientation: portrait) {' +
+    '  .lod-debug-panel {' +
+    '    top:auto; right:auto; left:50%; transform:translateX(-50%);' +
+    '    bottom:calc(10px + env(safe-area-inset-bottom, 0px));' +
+    '    width:min(360px, calc(100vw - 20px)); box-sizing:border-box;' +
+    '  }' +
+    '  .lod-debug-panel button { padding:10px 0; }' +
+    '}';
+
+LodDebugUi.injectStyles = function () {
+    if (document.getElementById('lod-debug-ui-style')) return;
+
+    var style = document.createElement('style');
+    style.id = 'lod-debug-ui-style';
+    style.textContent = LodDebugUi.CSS;
+    document.head.appendChild(style);
 };
 
 LodDebugUi.ACTIVE_MODE_COLOR = '#4a7c4a';
@@ -107,7 +131,10 @@ LodDebugUi.prototype._buildPanel = function () {
     var self = this;
     var style = LodDebugUi.STYLE;
 
-    var panel = this._panel = this._el('div', style.panel);
+    LodDebugUi.injectStyles();
+
+    var panel = this._panel = this._el('div');
+    panel.className = 'lod-debug-panel';
 
     var title = this._el('div', style.title, panel);
     title.textContent = 'LOD Debug';

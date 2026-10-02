@@ -48,6 +48,8 @@ lod.generate().then(() => { /* generate manually when Auto Generate is off */ })
 Shows the current LOD level, triangle count and camera distance on screen.
 In Manual mode you can pick a level with the number buttons. You can also toggle wireframe
 rendering and per-level color tinting.
+The panel sits in the top-right corner on desktop and moves to the bottom center, with larger
+touch targets, on phones in portrait orientation.
 
 ## How it works
 
