@@ -86,7 +86,7 @@ See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the full license text.
 
 The following model was used in the PlayCanvas project where these scripts were developed and tested.
 The model file is **not** included in this repository; only the demo recording
-`docs/lod-switching-demo.gif`, which shows it, is. That recording is shared under CC BY-NC-SA 4.0.
+`docs/lod-switching-demo.gif` and `docs/social-preview.png`, which show it, are. Both are shared under CC BY-NC-SA 4.0.
 
 > ["Frank"](https://sketchfab.com/3d-models/frank-0eb1f1757349489eab05a0f03cff5b46)
 > by [misterdevious](https://sketchfab.com/misterdevious)
@@ -102,4 +102,4 @@ The scripts (`lod.js`, `lod-debug-ui.js`) and documentation are released under t
 Third-party parts keep their own licenses, listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md):
 
 - `meshopt-simplifier.js`: meshoptimizer by Arseny Kapoulkine, MIT License.
-- `docs/lod-switching-demo.gif`: shows the "Frank" model by misterdevious, CC BY-NC-SA 4.0 (non-commercial).
+- `docs/lod-switching-demo.gif`, `docs/social-preview.png`: show the "Frank" model by misterdevious, CC BY-NC-SA 4.0 (non-commercial).

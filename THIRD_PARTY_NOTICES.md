@@ -57,13 +57,18 @@ SOFTWARE.
 
 The model file itself is **not** distributed in this repository.
 
-`docs/lod-switching-demo.gif` is a screen recording of the model rendered with these scripts
-(wireframe and per-level tinting, at several LOD levels). As a work showing the model, that
-recording is licensed under CC BY-NC-SA 4.0 with the credit below, and is not for commercial use.
+Two files show the model rendered with these scripts (wireframe and per-level tinting, at several
+LOD levels):
 
-If you redistribute the model, this recording, or a
-modified version of it, you must credit the author, use it for non-commercial purposes only, and
-share it under the same CC BY-NC-SA 4.0 license.
+- `docs/lod-switching-demo.gif`: a screen recording
+- `docs/social-preview.png`: still frames from that recording
+
+Because they show the model, both are licensed under CC BY-NC-SA 4.0 with the credit below and are
+not for commercial use.
+
+If you redistribute the model, these files, or a modified version of them, you must credit the
+author, use them for non-commercial purposes only, and share them under the same CC BY-NC-SA 4.0
+license.
 
 > "Frank" (https://sketchfab.com/3d-models/frank-0eb1f1757349489eab05a0f03cff5b46) by misterdevious
 > (https://sketchfab.com/misterdevious) is licensed under CC BY-NC-SA 4.0
