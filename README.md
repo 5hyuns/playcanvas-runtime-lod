@@ -5,6 +5,10 @@ At startup, the scripts simplify your meshes with [meshoptimizer](https://github
 generate LOD levels automatically, then switch between them based on camera distance.
 There is no build step: just upload the files to the PlayCanvas Editor.
 
+No pre-authored LOD models are needed. Any indexed mesh in a render component gets automatic
+mesh decimation (polygon reduction) when the app starts, which cuts the triangle count of distant
+objects in WebGL scenes.
+
 **[▶ Live demo](https://playcanv.as/p/06c52602/)** — switch to **Manual**, pick a level (0–3), and turn on
 **Wireframe** or **Color by LOD** to watch the triangle count change.
 
@@ -90,3 +94,12 @@ The model file is **not** included in this repository; only the demo recording
 
 This license requires crediting the author, allows non-commercial use only, and requires
 modified versions to be shared under the same license.
+
+## License
+
+The scripts (`lod.js`, `lod-debug-ui.js`) and documentation are released under the [MIT License](LICENSE).
+
+Third-party parts keep their own licenses, listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md):
+
+- `meshopt-simplifier.js`: meshoptimizer by Arseny Kapoulkine, MIT License.
+- `docs/lod-switching-demo.gif`: shows the "Frank" model by misterdevious, CC BY-NC-SA 4.0 (non-commercial).
