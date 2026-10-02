@@ -23,33 +23,77 @@ LodDebugUi.TINT_COLORS = [
     [0.5, 0.2, 0.5]
 ];
 
-LodDebugUi.STYLE = {
-    title: 'font-weight:bold; font-size:14px; margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid #444;',
-    row: 'display:flex; justify-content:space-between; margin-bottom:4px;',
-    separator: 'border-bottom:1px solid #444; margin:10px 0;',
-    buttonRow: 'display:flex; gap:6px; margin-bottom:10px;',
-    button: 'flex:1; border:1px solid #666; border-radius:4px; background:#333; color:#fff;' +
-        'font:inherit; font-size:12px; cursor:pointer;',
-    checkbox: 'display:flex; align-items:center; gap:8px; margin-bottom:6px; cursor:pointer;'
-};
+// Level colours are reserved for "which LOD is active"; everything else in the panel is neutral.
+// Layout: top-right on desktop, bottom-center with a compact grid and larger touch targets on
+// phones in portrait.
+LodDebugUi.CSS = [
+    '.lod-debug {',
+    '  --bg: rgba(17, 18, 23, 0.92); --line: rgba(255, 255, 255, 0.09);',
+    '  --fill: rgba(255, 255, 255, 0.06); --fill-hover: rgba(255, 255, 255, 0.11); --fill-on: rgba(255, 255, 255, 0.16);',
+    '  --text: #f3f4f6; --muted: #9ca3af; --ink: #111318; --focus: #93c5fd; --control: 28px;',
+    '  position: fixed; top: 12px; right: 12px; z-index: 10000; width: 232px; box-sizing: border-box;',
+    '  padding: 12px; border: 1px solid var(--line); border-radius: 10px;',
+    '  background: var(--bg); color: var(--text); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);',
+    '  font: 500 12px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;',
+    '  user-select: none; -webkit-user-select: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent;',
+    '}',
+    '.lod-debug * { box-sizing: border-box; }',
+    '.lod-debug-title { margin: 0 0 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; }',
 
-// Panel placement lives in a stylesheet so it can respond to the screen:
-// top-right on desktop, bottom-center with larger touch targets on phones in portrait.
-LodDebugUi.CSS =
-    '.lod-debug-panel {' +
-    '  position:fixed; top:10px; right:10px; z-index:10000; min-width:200px; padding:12px 16px;' +
-    '  background:rgba(0,0,0,0.85); color:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3);' +
-    '  font:13px Consolas, Monaco, monospace;' +
-    '}' +
-    '.lod-debug-panel button { padding:6px 0; }' +
-    '@media (max-width: 600px), (pointer: coarse) and (orientation: portrait) {' +
-    '  .lod-debug-panel {' +
-    '    top:auto; right:auto; left:50%; transform:translateX(-50%);' +
-    '    bottom:calc(10px + env(safe-area-inset-bottom, 0px));' +
-    '    width:min(360px, calc(100vw - 20px)); box-sizing:border-box;' +
-    '  }' +
-    '  .lod-debug-panel button { padding:10px 0; }' +
-    '}';
+    '.lod-debug-stats { display: grid; gap: 4px; margin: 0 0 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }',
+    '.lod-debug-stat { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }',
+    '.lod-debug-label { color: var(--muted); }',
+    '.lod-debug-value { font-weight: 600; font-variant-numeric: tabular-nums; }',
+
+    '.lod-debug-row { display: flex; gap: 4px; margin-bottom: 8px; }',
+    '.lod-debug button {',
+    '  flex: 1; min-width: 0; height: var(--control); padding: 0; border: 0; border-radius: 6px;',
+    '  background: var(--fill); color: var(--text); font: inherit; font-variant-numeric: tabular-nums; cursor: pointer;',
+    '  transition: background-color 150ms ease-out, color 150ms ease-out, opacity 150ms ease-out;',
+    '}',
+    '.lod-debug button:hover:not(:disabled) { background: var(--fill-hover); }',
+    '.lod-debug button:focus-visible, .lod-debug input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }',
+
+    // Auto / Manual segmented control
+    '.lod-debug-mode { padding: 2px; border-radius: 8px; background: var(--fill); gap: 2px; }',
+    '.lod-debug-mode button { background: transparent; color: var(--muted); }',
+    '.lod-debug-mode button[aria-pressed="true"] { background: var(--fill-on); color: var(--text); font-weight: 600; }',
+
+    // Level buttons: the current one carries its level colour, also while disabled in Auto mode
+    '.lod-debug-levels { margin-bottom: 12px; }',
+    '.lod-debug-levels button[aria-pressed="true"] { background: var(--lod-color); color: var(--ink); font-weight: 700; }',
+    '.lod-debug-levels button:disabled { cursor: default; }',
+    '.lod-debug-levels button:disabled:not([aria-pressed="true"]) { opacity: 0.4; }',
+
+    '.lod-debug-toggles { display: grid; gap: 6px; }',
+    '.lod-debug-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; }',
+    '.lod-debug-toggle input {',
+    '  appearance: none; -webkit-appearance: none; flex: none; width: 14px; height: 14px; margin: 0;',
+    '  border: 1.5px solid rgba(255, 255, 255, 0.4); border-radius: 4px; cursor: pointer;',
+    '  transition: background-color 150ms ease-out, border-color 150ms ease-out;',
+    '}',
+    '.lod-debug-toggle input:checked {',
+    '  border-color: var(--text); background: var(--text) no-repeat center / 10px 10px',
+    '  url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'%3E%3Cpath d=\'M2 5.2 4.1 7.3 8 3\' fill=\'none\' stroke=\'%23111318\' stroke-width=\'1.6\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E");',
+    '}',
+
+    '@media (max-width: 600px), (pointer: coarse) and (orientation: portrait) {',
+    '  .lod-debug {',
+    '    --control: 40px; top: auto; right: auto; left: 50%; transform: translateX(-50%);',
+    '    bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: min(360px, calc(100vw - 24px));',
+    '    font-size: 13px;',
+    '  }',
+    '  .lod-debug-title { display: none; }',
+    '  .lod-debug-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }',
+    '  .lod-debug-stat { flex-direction: column; align-items: flex-start; gap: 0; }',
+    '  .lod-debug-label { font-size: 11px; }',
+    '  .lod-debug-levels { margin-bottom: 10px; }',
+    '  .lod-debug-toggles { grid-template-columns: 1fr 1fr; }',
+    '  .lod-debug-toggle { min-height: 32px; }',
+    '}',
+
+    '@media (prefers-reduced-motion: reduce) { .lod-debug *, .lod-debug { transition: none !important; } }'
+].join('\n');
 
 LodDebugUi.injectStyles = function () {
     if (document.getElementById('lod-debug-ui-style')) return;
@@ -60,8 +104,6 @@ LodDebugUi.injectStyles = function () {
     document.head.appendChild(style);
 };
 
-LodDebugUi.ACTIVE_MODE_COLOR = '#4a7c4a';
-LodDebugUi.IDLE_COLOR = '#333';
 
 
 LodDebugUi.prototype.initialize = function () {
@@ -129,38 +171,41 @@ LodDebugUi.prototype._onDestroy = function () {
 
 LodDebugUi.prototype._buildPanel = function () {
     var self = this;
-    var style = LodDebugUi.STYLE;
 
     LodDebugUi.injectStyles();
 
-    var panel = this._panel = this._el('div');
-    panel.className = 'lod-debug-panel';
+    var panel = this._panel = this._el('section', 'lod-debug');
+    panel.setAttribute('aria-label', 'LOD debug');
 
-    var title = this._el('div', style.title, panel);
-    title.textContent = 'LOD Debug';
+    this._el('h2', 'lod-debug-title', panel).textContent = 'LOD Debug';
 
-    this._levelText = this._infoRow(panel, 'Level:');
-    this._triangleText = this._infoRow(panel, 'Triangles:');
-    this._distanceText = this._infoRow(panel, 'Distance:');
-
-    this._el('div', style.separator, panel);
+    var stats = this._el('div', 'lod-debug-stats', panel);
+    this._levelText = this._stat(stats, 'Level');
+    this._triangleText = this._stat(stats, 'Triangles');
+    this._distanceText = this._stat(stats, 'Distance');
 
     // Auto / Manual
-    var modeRow = this._el('div', style.buttonRow, panel);
+    var modeRow = this._el('div', 'lod-debug-row lod-debug-mode', panel);
+    modeRow.setAttribute('role', 'group');
+    modeRow.setAttribute('aria-label', 'Switching mode');
     this._autoButton = this._button(modeRow, 'Auto', function () { self._setManual(false); });
     this._manualButton = this._button(modeRow, 'Manual', function () { self._setManual(true); });
 
     // Level buttons: 0 .. lodCount
-    var levelRow = this._el('div', style.buttonRow, panel);
+    var levelRow = this._el('div', 'lod-debug-row lod-debug-levels', panel);
+    levelRow.setAttribute('role', 'group');
+    levelRow.setAttribute('aria-label', 'LOD level');
     this._levelButtons = [];
     for (var i = 0; i <= this._lod.lodCount; i++) {
-        this._levelButtons.push(this._button(levelRow, String(i), this._onLevelButton.bind(this, i)));
+        var button = this._button(levelRow, String(i), this._onLevelButton.bind(this, i));
+        button.setAttribute('aria-label', 'LOD' + i);
+        button.style.setProperty('--lod-color', this._cssColor(i));
+        this._levelButtons.push(button);
     }
 
-    this._el('div', style.separator, panel);
-
-    this._checkbox(panel, 'Wireframe', function (checked) { self._setWireframe(checked); });
-    this._checkbox(panel, 'Color by LOD', function (checked) { self._setTint(checked); });
+    var toggles = this._el('div', 'lod-debug-toggles', panel);
+    this._checkbox(toggles, 'Wireframe', function (checked) { self._setWireframe(checked); });
+    this._checkbox(toggles, 'Color by LOD', function (checked) { self._setTint(checked); });
 
     document.body.appendChild(panel);
 
@@ -168,36 +213,35 @@ LodDebugUi.prototype._buildPanel = function () {
     this._refreshLevelButtons();
 };
 
-LodDebugUi.prototype._el = function (tag, cssText, parent) {
+LodDebugUi.prototype._el = function (tag, className, parent) {
     var el = document.createElement(tag);
-    if (cssText) el.style.cssText = cssText;
+    if (className) el.className = className;
     if (parent) parent.appendChild(el);
     return el;
 };
 
-// Returns the value span so it can be updated every frame.
-LodDebugUi.prototype._infoRow = function (parent, label) {
-    var row = this._el('div', LodDebugUi.STYLE.row, parent);
+// Returns the value element so it can be updated every frame.
+LodDebugUi.prototype._stat = function (parent, label) {
+    var stat = this._el('div', 'lod-debug-stat', parent);
+    this._el('span', 'lod-debug-label', stat).textContent = label;
 
-    var labelEl = this._el('span', 'color:#aaa;', row);
-    labelEl.textContent = label;
-
-    var valueEl = this._el('span', 'font-weight:bold;', row);
-    valueEl.textContent = '---';
-    return valueEl;
+    var value = this._el('span', 'lod-debug-value', stat);
+    value.textContent = '–';
+    return value;
 };
 
 LodDebugUi.prototype._button = function (parent, text, onClick) {
-    var button = this._el('button', LodDebugUi.STYLE.button, parent);
+    var button = this._el('button', null, parent);
+    button.type = 'button';
     button.textContent = text;
     button.addEventListener('click', onClick);
     return button;
 };
 
 LodDebugUi.prototype._checkbox = function (parent, text, onChange) {
-    var label = this._el('label', LodDebugUi.STYLE.checkbox, parent);
+    var label = this._el('label', 'lod-debug-toggle', parent);
 
-    var input = this._el('input', 'cursor:pointer;', label);
+    var input = this._el('input', null, label);
     input.type = 'checkbox';
     input.addEventListener('change', function () { onChange(input.checked); });
 
@@ -210,18 +254,19 @@ LodDebugUi.prototype._cssColor = function (level) {
 };
 
 LodDebugUi.prototype._refreshModeButtons = function () {
-    this._autoButton.style.background = this._manual ? LodDebugUi.IDLE_COLOR : LodDebugUi.ACTIVE_MODE_COLOR;
-    this._manualButton.style.background = this._manual ? LodDebugUi.ACTIVE_MODE_COLOR : LodDebugUi.IDLE_COLOR;
+    this._autoButton.setAttribute('aria-pressed', String(!this._manual));
+    this._manualButton.setAttribute('aria-pressed', String(this._manual));
 };
 
+// In Auto mode the level buttons are a read-out: disabled, with the active level highlighted.
 LodDebugUi.prototype._refreshLevelButtons = function () {
     var current = this._lod.getCurrentLOD();
 
     for (var i = 0; i < this._levelButtons.length; i++) {
         var button = this._levelButtons[i];
-        button.style.background = i === current ? this._cssColor(i) : LodDebugUi.IDLE_COLOR;
-        button.style.opacity = this._manual ? '1' : '0.5';
-        button.style.cursor = this._manual ? 'pointer' : 'default';
+        button.setAttribute('aria-pressed', String(i === current));
+        button.disabled = !this._manual;
+        button.title = this._manual ? '' : 'Switch to Manual to pick a level';
     }
 };
 
