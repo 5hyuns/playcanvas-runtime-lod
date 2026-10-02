@@ -44,7 +44,7 @@ SOFTWARE.
 
 ---
 
-## "Frank" 3D model (not included in this repository)
+## "Frank" 3D model (model file not included; shown in the demo recording)
 
 - **Title:** Frank
 - **Author:** misterdevious - https://sketchfab.com/misterdevious
@@ -54,7 +54,13 @@ SOFTWARE.
 - **Used for:** the test/demo model in the PlayCanvas project where these scripts were developed.
   The model was not modified as a file; `lod.js` only produces simplified versions of it at runtime.
 
-The model file itself is **not** distributed in this repository. If you redistribute it or a
+The model file itself is **not** distributed in this repository.
+
+`docs/lod-switching-demo.gif` is a screen recording of the model rendered with these scripts
+(wireframe and per-level tinting, at several LOD levels). As a work showing the model, that
+recording is licensed under CC BY-NC-SA 4.0 with the credit below, and is not for commercial use.
+
+If you redistribute the model, this recording, or a
 modified version of it, you must credit the author, use it for non-commercial purposes only, and
 share it under the same CC BY-NC-SA 4.0 license.
 

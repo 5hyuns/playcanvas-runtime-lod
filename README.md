@@ -5,6 +5,10 @@ At startup, the scripts simplify your meshes with [meshoptimizer](https://github
 generate LOD levels automatically, then switch between them based on camera distance.
 There is no build step: just upload the files to the PlayCanvas Editor.
 
+![Switching LOD levels in Manual mode with wireframe and Color by LOD on: LOD0 49,998 → LOD1 24,998 → LOD3 4,999 triangles](docs/lod-switching-demo.gif)
+
+<sub>Model: ["Frank"](https://sketchfab.com/3d-models/frank-0eb1f1757349489eab05a0f03cff5b46) by [misterdevious](https://sketchfab.com/misterdevious), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). This recording is shared under the same license.</sub>
+
 | File | Script name | Purpose |
 |------|-------------|---------|
 | `lod.js` | `lodScript` | LOD generation + camera-distance switching |
@@ -74,7 +78,8 @@ See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the full license text.
 ### "Frank" 3D model — CC BY-NC-SA 4.0
 
 The following model was used in the PlayCanvas project where these scripts were developed and tested.
-The model file is **not** included in this repository.
+The model file is **not** included in this repository; only the demo recording
+`docs/lod-switching-demo.gif`, which shows it, is. That recording is shared under CC BY-NC-SA 4.0.
 
 > ["Frank"](https://sketchfab.com/3d-models/frank-0eb1f1757349489eab05a0f03cff5b46)
 > by [misterdevious](https://sketchfab.com/misterdevious)
