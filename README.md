@@ -11,6 +11,7 @@ objects in WebGL scenes.
 
 **[▶ Live demo](https://playcanv.as/p/06c52602/)** — switch to **Manual**, pick a level (0–3), and turn on
 **Wireframe** or **Color by LOD** to watch the triangle count change.
+Project page: **[5hyuns.github.io/playcanvas-runtime-lod](https://5hyuns.github.io/playcanvas-runtime-lod/)**
 
 <a href="https://playcanv.as/p/06c52602/"><img src="docs/lod-switching-demo.gif" width="100%" alt="Switching LOD levels in Manual mode with wireframe and Color by LOD on: LOD0 49,998 → LOD1 24,998 → LOD3 4,999 triangles"></a>
 
